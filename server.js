@@ -1,16 +1,29 @@
 const express = require("express");
 const path = require("path");
 const app = express();
+const port = process.env.PORT || 8000;
 
 //Setup Static Folders(like .html)
 // app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "home.html"));
+const posts = [
+  {
+    id: 1,
+    title: "Post One",
+  },
+  {
+    id: 2,
+    title: "Post Two",
+  },
+  {
+    id: 3,
+    title: "Posts Three",
+  },
+];
+
+//Sending all posts to client from server
+app.get("/api/posts", (req, res) => {
+  res.json(posts);
 });
 
-app.get("/about", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "about.html"));
-});
-
-app.listen(8000, () => console.log(`Server is listening at port 8000`));
+app.listen(port, () => console.log(`Server is listening at port ${port}`));
